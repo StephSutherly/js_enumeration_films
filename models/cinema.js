@@ -2,47 +2,69 @@ const Cinema = function (films) {
   this.films = films;
 };
 
-Cinema.prototype.getTitles = function(films) {
-  const result = films.map((film) => {
-    return film.title
+Cinema.prototype.getTitles = function() {
+  return this.films.map((film) => {
+    return film.title;
   });
-  return result
-  console.log(result);
 };
 
-Cinema.prototype.filmByTitle = function(films, title) {
-  const result = films.filter((film) => {
+Cinema.prototype.filmByTitle = function(title) {
+  return this.films.filter((film) => {
     return film.title === title;
   });
-  return result;
 };
 
-Cinema.prototype.filmsByGenre = function(films, genre) {
-  const result = films.filter((film) => {
+Cinema.prototype.filmsByGenre = function(genre) {
+  return this.films.filter((film) => {
     return film.genre === genre;
   });
-  return result;
 };
 
-Cinema.prototype.filmsThatYearBoolean = function (films, year) {
-  let filmThere = function (film) {
+Cinema.prototype.filmsByYear = function(year) {
+  return this.films.filter((film) => {
     return film.year === year;
-  };
-  return films.some(filmThere);
+  });
 };
 
-Cinema.prototype.filmsOverLength = function (films, length) {
-  let filmLength = function (film) {
-    return film.length > length;
-  };
-  return films.every(filmLength);
+Cinema.prototype.filmsByProperty = function(property, value) {
+    return this.films.filter((film) => {
+        return film[property] === value;
+      });
+    };
+
+// Cinema.prototype.filmsThatYearBoolean = function (films, year) {
+//   let filmThere = function (film) {
+//     return film.year === year;
+//   };
+//   return films.some(filmThere);
+// };
+
+Cinema.prototype.filmsThatYearBoolean = function (year) {
+  return this.films.some((film) => {
+    return film.year === year;
+  })
+
 };
 
-Cinema.prototype.totalRunningTime = function (films) {
-  const total = films.reduce((runningTotal, film) => {
+// Cinema.prototype.allFilmsOverLength = function (films, length) {
+//   let filmLength = function (film) {
+//     return film.length > length;
+//   };
+//   return films.every(filmLength);
+// };
+
+Cinema.prototype.allFilmsOverLength = function (length) {
+  return this.films.every((film) => {
+    return film.length >= length;
+  });
+};
+
+Cinema.prototype.totalRunningTime = function () {
+  return this.films.reduce((runningTotal, film) => {
     return runningTotal + film.length
   }, 0);
-  return total;
 };
+
+
 
 module.exports = Cinema;
